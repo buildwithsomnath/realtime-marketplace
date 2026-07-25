@@ -5,6 +5,16 @@ from rest_framework.views import APIView
 
 from .serializers import SignupSerializer
 
+from rest_framework_simplejwt.tokens import RefreshToken
+
+
+class LogoutView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        print("Authorization:", request.headers.get("Authorization"))
+
+        return Response({"ok": True})
 
 class SignupView(APIView):
     permission_classes = [AllowAny]
@@ -22,8 +32,8 @@ class ProfileView(APIView):
     permission_classes = [AllowAny]
 
     def get(self, request):
-        print(request.headers)
-        print(request.headers.get("Authorization"))
+        print("Authorization:", request.headers.get("Authorization"))
+        print(dict(request.headers))
 
         return Response({
             "headers": dict(request.headers)
