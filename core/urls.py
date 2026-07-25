@@ -6,13 +6,11 @@ from rest_framework_simplejwt.views import (
 
 from .views import SignupView, ProfileView
 
-app_name = "core"
-
 urlpatterns = [
     path("signup/", SignupView.as_view(), name="signup"),
 
+    # Built-in Simple JWT views
     path("login/", TokenObtainPairView.as_view(), name="login"),
-
     path("refresh/", TokenRefreshView.as_view(), name="refresh"),
 
     path("profile/", ProfileView.as_view(), name="profile"),

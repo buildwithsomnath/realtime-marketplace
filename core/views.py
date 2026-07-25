@@ -19,15 +19,12 @@ class SignupView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class ProfileView(APIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
 
     def get(self, request):
-        print("Authorization:", request.headers.get("Authorization"))
-        print("User:", request.user)
-        print("Auth:", request.auth)
+        print(request.headers)
+        print(request.headers.get("Authorization"))
 
         return Response({
-            "id": request.user.id,
-            "username": request.user.username,
-            "email": request.user.email,
+            "headers": dict(request.headers)
         })
