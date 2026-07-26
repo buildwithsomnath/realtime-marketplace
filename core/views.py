@@ -3,7 +3,7 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .serializers import SignupSerializer
+from .serializers import SignupSerializer, ProfileSerializer
 
 from rest_framework_simplejwt.tokens import RefreshToken
 
@@ -15,6 +15,7 @@ class LogoutView(APIView):
         print("Authorization:", request.headers.get("Authorization"))
 
         return Response({"ok": True})
+
 
 class SignupView(APIView):
     permission_classes = [AllowAny]
@@ -28,13 +29,13 @@ class SignupView(APIView):
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
 class ProfileView(APIView):
     permission_classes = [AllowAny]
 
     def get(self, request):
-        print("Authorization:", request.headers.get("Authorization"))
-        print(dict(request.headers))
-
         return Response({
-            "headers": dict(request.headers)
+            "authorization": request.headers.get("Authorization"),
+            "user": str(request.user),
+            "authenticated": request.user.is_authenticated,
         })
