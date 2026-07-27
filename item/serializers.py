@@ -10,17 +10,12 @@ class CategorySerializer(serializers.ModelSerializer):
 
 
 class ItemSerializer(serializers.ModelSerializer):
-    category = CategorySerializer(read_only=True)
-    created_by = serializers.StringRelatedField(read_only=True)
+    created_by = serializers.ReadOnlyField(source="created_by.username")
 
     class Meta:
         model = Item
         fields = "__all__"
-
-
-class ItemCreateSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Item
-        exclude = (
+        read_only_fields = (
+            "id",
             "created_by",
         )

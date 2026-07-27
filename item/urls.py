@@ -2,8 +2,8 @@ from django.urls import path
 
 from .views import (
     CategoryListView,
-    ItemDetailView,
     ItemListCreateView,
+    ItemDetailView,
 )
 
 app_name = "item"
