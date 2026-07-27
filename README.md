@@ -1,4 +1,4 @@
-# 🛒 Online Marketplace with Real-Time Communication
+# 🛒 Real-Time Marketplace
 
 ![Django](https://img.shields.io/badge/Django-092E20?style=for-the-badge&logo=django&logoColor=green)
 ![Django REST Framework](https://img.shields.io/badge/DRF-A30000?style=for-the-badge&logo=django&logoColor=white)
@@ -95,7 +95,7 @@ A full-stack online marketplace where buyers and sellers can securely buy, sell,
 # 📂 Project Structure
 
 ```
-Online-Marketplace-RTC/
+realtime-marketplace/
 
 backend/
 │
@@ -300,8 +300,7 @@ The API can be tested using
 
 **Somnath Das**
 
-- GitHub: https://github.com/dassomnath99
-- LinkedIn: https://linkedin.com/in/buildwithsomnath
+- GitHub: https://github.com/buildwithsomnath
 
 ---
 
