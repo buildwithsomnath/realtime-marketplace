@@ -31,11 +31,75 @@ class SignupView(APIView):
 
 
 class ProfileView(APIView):
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
 
     def get(self, request):
-        return Response({
-            "authorization": request.headers.get("Authorization"),
-            "user": str(request.user),
-            "authenticated": request.user.is_authenticated,
-        })
+        """
+        GET /api/auth/profile/
+        """
+        serializer = ProfileSerializer(request.user)
+        return Response(serializer.data)
+
+    def put(self, request):
+        """
+        PUT /api/auth/profile/
+        Replace the entire profile.
+        """
+        serializer = ProfileSerializer(
+            request.user,
+            data=request.data,
+        )
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(
+                {
+                    "message": "Profile updated successfully.",
+                    "user": serializer.data,
+                }
+            )
+
+        return Response(
+            serializer.errors,
+            status=status.HTTP_400_BAD_REQUEST,
+        )
+
+    def patch(self, request):
+        """
+        PATCH /api/auth/profile/
+        Partially update the profile.
+        """
+        serializer = ProfileSerializer(
+            request.user,
+            data=request.data,
+            partial=True,
+        )
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(
+                {
+                    "message": "Profile updated successfully.",
+                    "user": serializer.data,
+                }
+            )
+
+        return Response(
+            serializer.errors,
+            status=status.HTTP_400_BAD_REQUEST,
+        )
+
+    def delete(self, request):
+        """
+        DELETE /api/auth/profile/
+        Delete the authenticated user's account.
+        """
+        user = request.user
+        user.delete()
+
+        return Response(
+            {
+                "message": "Account deleted successfully."
+            },
+            status=status.HTTP_204_NO_CONTENT,
+        )
