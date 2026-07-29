@@ -1,9 +1,6 @@
 from django.urls import path
 
-from .views import (
-    DashboardView,
-    MyItemsView,
-)
+from .views import DashboardView, MyItemsView
 
 app_name = "dashboard"
 
