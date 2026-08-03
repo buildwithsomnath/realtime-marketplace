@@ -6,56 +6,45 @@ import MainLayout from "../layouts/MainLayout";
 import DashboardLayout from "../layouts/DashboardLayout";
 
 // Public Pages
-import HomePage from "../pages/HomePage";
-import LoginPage from "../pages/LoginPage";
-import SignupPage from "../pages/SignupPage";
-import ItemsPage from "../pages/ItemsPage";
-import ItemDetailPage from "../pages/ItemDetailPage";
+import Home from "../pages/Home";
+import Login from "../pages/Login";
+import Signup from "../pages/Signup";
+import Search from "../pages/Search";
+import ItemDetails from "../pages/ItemDetails";
+import NotFound from "../pages/NotFound";
 
-// Dashboard Pages
-import DashboardPage from "../pages/dashboard/DashboardPage";
-import MyItemsPage from "../pages/dashboard/MyItemsPage";
-import ProfilePage from "../pages/dashboard/ProfilePage";
-import ConversationPage from "../pages/dashboard/ConversationPage";
-import CreateItemPage from "../pages/dashboard/CreateItemPage";
+// Protected Pages
+import Dashboard from "../pages/Dashboard";
+import MyItems from "../pages/MyItems";
+import Profile from "../pages/Profile";
+import Conversations from "../pages/Conversations";
+import Chat from "../pages/Chat";
+import CreateItem from "../pages/CreateItem";
+import EditItem from "../pages/EditItem";
 
 const AppRoutes = () => {
     return (
         <Routes>
 
-            {/* ---------------- Public Routes ---------------- */}
-
+            {/* Public Routes */}
             <Route element={<MainLayout />}>
 
-                <Route
-                    path="/"
-                    element={<HomePage />}
-                />
+                <Route path="/" element={<Home />} />
 
-                <Route
-                    path="/login"
-                    element={<LoginPage />}
-                />
+                <Route path="/login" element={<Login />} />
 
-                <Route
-                    path="/signup"
-                    element={<SignupPage />}
-                />
+                <Route path="/signup" element={<Signup />} />
 
-                <Route
-                    path="/items"
-                    element={<ItemsPage />}
-                />
+                <Route path="/items" element={<Search />} />
 
                 <Route
                     path="/items/:id"
-                    element={<ItemDetailPage />}
+                    element={<ItemDetails />}
                 />
 
             </Route>
 
-            {/* ---------------- Protected Routes ---------------- */}
-
+            {/* Protected Routes */}
             <Route
                 element={
                     <ProtectedRoute>
@@ -66,43 +55,43 @@ const AppRoutes = () => {
 
                 <Route
                     path="/dashboard"
-                    element={<DashboardPage />}
+                    element={<Dashboard />}
                 />
 
                 <Route
                     path="/dashboard/items"
-                    element={<MyItemsPage />}
+                    element={<MyItems />}
                 />
 
                 <Route
                     path="/dashboard/items/create"
-                    element={<CreateItemPage />}
+                    element={<CreateItem />}
+                />
+
+                <Route
+                    path="/dashboard/items/:id/edit"
+                    element={<EditItem />}
                 />
 
                 <Route
                     path="/profile"
-                    element={<ProfilePage />}
+                    element={<Profile />}
                 />
 
                 <Route
                     path="/conversations"
-                    element={<ConversationPage />}
+                    element={<Conversations />}
+                />
+
+                <Route
+                    path="/conversations/:id"
+                    element={<Chat />}
                 />
 
             </Route>
 
-            {/* ---------------- 404 ---------------- */}
-
-            <Route
-                path="*"
-                element={
-                    <div className="flex h-screen items-center justify-center">
-                        <h1 className="text-3xl font-bold">
-                            404 | Page Not Found
-                        </h1>
-                    </div>
-                }
-            />
+            {/* 404 */}
+            <Route path="*" element={<NotFound />} />
 
         </Routes>
     );
