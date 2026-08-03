@@ -307,3 +307,66 @@ The API can be tested using
 # 📜 License
 
 This project is licensed under the MIT License.
+
+frontend/
+│
+├── public/
+│
+├── src/
+│   ├── api/
+│   │   ├── axios.js
+│   │   ├── auth.js
+│   │   ├── items.js
+│   │   ├── dashboard.js
+│   │   └── conversations.js
+│   │
+│   ├── assets/
+│   │
+│   ├── components/
+│   │   ├── Navbar.jsx
+│   │   ├── Sidebar.jsx
+│   │   ├── Footer.jsx
+│   │   ├── ItemCard.jsx
+│   │   ├── ChatBox.jsx
+│   │   ├── Loading.jsx
+│   │   └── ProtectedRoute.jsx
+│   │
+│   ├── context/
+│   │   └── AuthContext.jsx
+│   │
+│   ├── hooks/
+│   │   └── useAuth.js
+│   │
+│   ├── layouts/
+│   │   ├── MainLayout.jsx
+│   │   └── DashboardLayout.jsx
+│   │
+│   ├── pages/
+│   │   ├── Home.jsx
+│   │   ├── Login.jsx
+│   │   ├── Signup.jsx
+│   │   ├── Profile.jsx
+│   │   ├── Dashboard.jsx
+│   │   ├── MyItems.jsx
+│   │   ├── CreateItem.jsx
+│   │   ├── EditItem.jsx
+│   │   ├── ItemDetails.jsx
+│   │   ├── Conversations.jsx
+│   │   ├── Chat.jsx
+│   │   ├── NotFound.jsx
+│   │   └── Search.jsx
+│   │
+│   ├── routes/
+│   │   └── AppRoutes.jsx
+│   │
+│   ├── utils/
+│   │   ├── auth.js
+│   │   └── websocket.js
+│   │
+│   ├── App.jsx
+│   ├── main.jsx
+│   └── index.css
+│
+├── package.json
+├── vite.config.js
+└── tailwind.config.js
