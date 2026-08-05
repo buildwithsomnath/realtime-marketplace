@@ -370,3 +370,34 @@ frontend/
 ├── package.json
 ├── vite.config.js
 └── tailwind.config.js
+
+
+Phase 1
+✔ UI Components
+
+Phase 2
+⬅ Layout (NEXT)
+
+Phase 3
+Home Page
+
+Phase 4
+Authentication
+
+Phase 5
+Marketplace
+
+Phase 6
+Dashboard
+
+Phase 7
+Real-time Chat
+
+Phase 8
+Notifications
+
+Phase 9
+Dark Mode
+
+Phase 10
+Deployment

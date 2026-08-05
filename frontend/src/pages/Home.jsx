@@ -1,18 +1,16 @@
+import Hero from "../components/home/Hero";
+import Categories from "../components/home/Categories";
+import FeaturedProducts from "../components/home/FeaturedProducts";
+
 const Home = () => {
     return (
-        <div className="space-y-6">
+        <div className="space-y-24">
 
-            <section className="rounded-xl bg-blue-600 p-10 text-white">
+            <Hero />
 
-                <h1 className="text-5xl font-bold">
-                    Online Marketplace
-                </h1>
+            <Categories />
 
-                <p className="mt-4 text-lg">
-                    Buy and sell products with real-time messaging.
-                </p>
-
-            </section>
+            <FeaturedProducts />
 
         </div>
     );

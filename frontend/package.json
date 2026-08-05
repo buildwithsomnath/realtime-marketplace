@@ -10,10 +10,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@headlessui/react": "^2.2.10",
     "@heroicons/react": "^2.2.0",
     "axios": "^1.19.0",
+    "framer-motion": "^12.43.0",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
+    "react-hook-form": "^7.84.0",
+    "react-hot-toast": "^2.6.0",
     "react-router-dom": "^7.11.0"
   },
   "devDependencies": {

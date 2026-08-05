@@ -10,12 +10,16 @@ class CategorySerializer(serializers.ModelSerializer):
 
 
 class ItemSerializer(serializers.ModelSerializer):
-    created_by = serializers.ReadOnlyField(source="created_by.username")
+    image = serializers.SerializerMethodField()
+    created_by = serializers.CharField(source="created_by.username", read_only=True)
+    category_name = serializers.CharField(source="category.name", read_only=True)
 
     class Meta:
         model = Item
         fields = "__all__"
-        read_only_fields = (
-            "id",
-            "created_by",
-        )
+
+    def get_image(self, obj):
+        request = self.context.get("request")
+        if obj.image and request:
+            return request.build_absolute_uri(obj.image.url)
+        return None

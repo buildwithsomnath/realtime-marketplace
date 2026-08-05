@@ -30,7 +30,7 @@ class ItemListCreateView(APIView):
         GET /api/items/
         """
         items = Item.objects.filter(is_sold=False)
-        serializer = ItemSerializer(items, many=True)
+        serializer = ItemSerializer(items, many=True,context={"request": request})
 
         return Response(serializer.data)
 

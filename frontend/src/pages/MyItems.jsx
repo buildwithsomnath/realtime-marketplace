@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getMyItems } from "../api/dashboard";
-import ItemCard from "../components/ItemCard";
+import ItemCard from "../components/items/ItemCard";
 
 const MyItems = () => {
 

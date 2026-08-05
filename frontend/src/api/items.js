@@ -1,48 +1,40 @@
 import api from "./axios";
 
-// List Items
+// Get all items
 export const getItems = () => {
-  return api.get("items/");
+    return api.get("items/");
 };
 
-// Item Details
+// Get single item
 export const getItem = (id) => {
-  return api.get(`items/${id}/`);
+    return api.get(`items/${id}/`);
+};
+
+// Create item
+export const createItem = (data) => {
+    return api.post("items/", data, {
+        headers: {
+            "Content-Type": "multipart/form-data",
+        },
+    });
+};
+
+// Update item
+export const updateItem = (id, data) => {
+    return api.put(`items/${id}/`, data);
+};
+
+// Patch item
+export const patchItem = (id, data) => {
+    return api.patch(`items/${id}/`, data);
+};
+
+// Delete item
+export const deleteItem = (id) => {
+    return api.delete(`items/${id}/`);
 };
 
 // Categories
 export const getCategories = () => {
-  return api.get("items/categories/");
-};
-
-// Create Item
-export const createItem = (data) => {
-  return api.post("items/", data, {
-    headers: {
-      "Content-Type": "multipart/form-data",
-    },
-  });
-};
-
-// Update Item
-export const updateItem = (id, data) => {
-  return api.put(`items/${id}/`, data, {
-    headers: {
-      "Content-Type": "multipart/form-data",
-    },
-  });
-};
-
-// Partial Update
-export const patchItem = (id, data) => {
-  return api.patch(`items/${id}/`, data, {
-    headers: {
-      "Content-Type": "multipart/form-data",
-    },
-  });
-};
-
-// Delete Item
-export const deleteItem = (id) => {
-  return api.delete(`items/${id}/`);
+    return api.get("items/categories/");
 };
