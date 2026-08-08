@@ -1,11 +1,15 @@
-import React from "react";
+import "../styles/loading.css";
 
-const Loading = () => {
-  return (
-    <div className="flex justify-center items-center h-screen">
-      <div className="h-12 w-12 animate-spin rounded-full border-4 border-blue-600 border-t-transparent"></div>
-    </div>
-  );
+const Loading = ({ message = "Loading..." }) => {
+    return (
+        <div className="loading-container">
+            <div className="loading-spinner"></div>
+
+            <p className="loading-text">
+                {message}
+            </p>
+        </div>
+    );
 };
 
 export default Loading;

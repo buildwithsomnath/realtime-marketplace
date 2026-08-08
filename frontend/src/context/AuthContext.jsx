@@ -1,119 +1,112 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import {
+    createContext,
+    useEffect,
+    useState,
+} from "react";
 
 import {
-  login as loginAPI,
-  signup as signupAPI,
-  logout as logoutAPI,
-  getProfile,
+    login as loginAPI,
+    signup as signupAPI,
+    logout as logoutAPI,
+    getProfile,
 } from "../api/auth";
 
-const AuthContext = createContext();
+export const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+    const [user, setUser] = useState(null);
 
-  const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(true);
 
-  const [authenticated, setAuthenticated] = useState(
-    !!localStorage.getItem("access")
-  );
+    const [authenticated, setAuthenticated] = useState(
+        Boolean(localStorage.getItem("access"))
+    );
 
-  // -----------------------
-  // Load Current User
-  // -----------------------
+    const loadUser = async () => {
+        try {
+            const response = await getProfile();
 
-  const loadUser = async () => {
-    try {
-      const res = await getProfile();
+            setUser(response.data);
+            setAuthenticated(true);
+        } catch (error) {
+            console.error("Failed to load profile:", error);
 
-      setUser(res.data);
+            localStorage.removeItem("access");
+            localStorage.removeItem("refresh");
 
-      setAuthenticated(true);
-    } catch (err) {
-      setUser(null);
+            setUser(null);
+            setAuthenticated(false);
+        } finally {
+            setLoading(false);
+        }
+    };
 
-      setAuthenticated(false);
+    const login = async (credentials) => {
+        const response = await loginAPI(credentials);
 
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
-  };
+        localStorage.setItem(
+            "access",
+            response.data.access
+        );
 
-  // -----------------------
-  // Login
-  // -----------------------
+        if (response.data.refresh) {
+            localStorage.setItem(
+                "refresh",
+                response.data.refresh
+            );
+        }
 
-  const login = async (credentials) => {
-    const res = await loginAPI(credentials);
+        await loadUser();
 
-    localStorage.setItem("access", res.data.access);
+        return response.data;
+    };
 
-    localStorage.setItem("refresh", res.data.refresh);
+    const signup = async (data) => {
+        return signupAPI(data);
+    };
 
-    await loadUser();
+    const logout = async () => {
+        try {
+            const refresh =
+                localStorage.getItem("refresh");
 
-    return res.data;
-  };
+            if (refresh) {
+                await logoutAPI(refresh);
+            }
+        } catch (error) {
+            console.error("Logout error:", error);
+        } finally {
+            localStorage.removeItem("access");
+            localStorage.removeItem("refresh");
 
-  // -----------------------
-  // Signup
-  // -----------------------
+            setUser(null);
+            setAuthenticated(false);
+        }
+    };
 
-  const signup = async (data) => {
-    return await signupAPI(data);
-  };
+    useEffect(() => {
+        const token = localStorage.getItem("access");
 
-  // -----------------------
-  // Logout
-  // -----------------------
+        if (token) {
+            loadUser();
+        } else {
+            setLoading(false);
+        }
+    }, []);
 
-  const logout = async () => {
-    try {
-      const refresh = localStorage.getItem("refresh");
-
-      if (refresh) {
-        await logoutAPI(refresh);
-      }
-    } catch (err) {
-      console.error(err);
-    }
-
-    localStorage.removeItem("access");
-    localStorage.removeItem("refresh");
-
-    setUser(null);
-
-    setAuthenticated(false);
-  };
-
-  // -----------------------
-  // Initial Load
-  // -----------------------
-
-  useEffect(() => {
-    if (localStorage.getItem("access")) {
-      loadUser();
-    } else {
-      setLoading(false);
-    }
-  }, []);
-
-  return (
-    <AuthContext.Provider
-      value={{
-        user,
-        loading,
-        authenticated,
-        login,
-        signup,
-        logout,
-        loadUser,
-      }}
-    >
-      {children}
-    </AuthContext.Provider>
-  );
+    return (
+        <AuthContext.Provider
+            value={{
+                user,
+                loading,
+                authenticated,
+                login,
+                signup,
+                logout,
+                loadUser,
+            }}
+        >
+            {children}
+        </AuthContext.Provider>
+    );
 };
-
-export const useAuth = () => useContext(AuthContext);

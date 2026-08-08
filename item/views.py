@@ -38,10 +38,17 @@ class ItemListCreateView(APIView):
         """
         POST /api/items/
         """
-        serializer = ItemSerializer(data=request.data)
+
+        serializer = ItemSerializer(
+            data=request.data,
+            context={"request": request}
+        )
 
         if serializer.is_valid():
-            serializer.save(created_by=request.user)
+
+            serializer.save(
+                created_by=request.user
+            )
 
             return Response(
                 {
@@ -51,8 +58,10 @@ class ItemListCreateView(APIView):
                 status=status.HTTP_201_CREATED,
             )
 
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
+        return Response(
+            serializer.errors,
+            status=status.HTTP_400_BAD_REQUEST,
+        )
 
 class ItemDetailView(APIView):
     permission_classes = [IsAuthenticatedOrReadOnly]

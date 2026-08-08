@@ -12,20 +12,11 @@ export const getItem = (id) => {
 
 // Create item
 export const createItem = (data) => {
-    return api.post("items/", data, {
-        headers: {
-            "Content-Type": "multipart/form-data",
-        },
-    });
+    return api.post("items/", data);
 };
 
 // Update item
 export const updateItem = (id, data) => {
-    return api.put(`items/${id}/`, data);
-};
-
-// Patch item
-export const patchItem = (id, data) => {
     return api.patch(`items/${id}/`, data);
 };
 
@@ -34,7 +25,7 @@ export const deleteItem = (id) => {
     return api.delete(`items/${id}/`);
 };
 
-// Categories
+// Get categories
 export const getCategories = () => {
     return api.get("items/categories/");
 };

@@ -1,11 +1,16 @@
 import api from "./axios";
 
-// Dashboard Overview
+// Dashboard
 export const getDashboard = () => {
-  return api.get("dashboard/");
+    return api.get("dashboard/");
 };
 
 // My Items
 export const getMyItems = () => {
-  return api.get("dashboard/items/");
+    return api.get("dashboard/items/");
+};
+
+// Delete Item
+export const deleteItem = (id) => {
+    return api.delete(`items/${id}/`);
 };

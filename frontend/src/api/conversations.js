@@ -1,29 +1,28 @@
 import api from "./axios";
 
-// List Conversations
+// GET /api/conversations/
 export const getConversations = () => {
-  return api.get("conversations/");
+    return api.get("conversations/");
 };
 
-// Start Conversation
+// POST /api/conversations/create/
 export const createConversation = (data) => {
-  return api.post("conversations/", data);
+    return api.post(
+        "conversations/create/",
+        data
+    );
 };
 
-// Conversation Details
+// GET /api/conversations/<id>/
 export const getConversation = (id) => {
-  return api.get(`conversations/${id}/`);
+    return api.get(
+        `conversations/${id}/`
+    );
 };
 
-// Delete Conversation
+// DELETE /api/conversations/<id>/delete/
 export const deleteConversation = (id) => {
-  return api.delete(`conversations/${id}/`);
-};
-
-// Send Message
-export const sendMessage = (conversationId, data) => {
-  return api.post(
-    `conversations/${conversationId}/messages/`,
-    data
-  );
+    return api.delete(
+        `conversations/${id}/delete/`
+    );
 };
