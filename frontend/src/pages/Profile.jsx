@@ -61,7 +61,6 @@ const Profile = () => {
                 last_name: user.last_name || "",
             });
         }
-
         setEditing(false);
         setError("");
     };
@@ -136,31 +135,9 @@ const Profile = () => {
                     </h1>
 
                     <p className="profile-page-description">
-                        Manage your personal information and
-                        account details.
+                        Manage your personal information and account details.
                     </p>
                 </div>
-
-                {/* THIS IS THE EDIT BUTTON */}
-
-                {!editing && (
-                    <button
-                        type="button"
-                        onClick={handleEdit}
-                        className="profile-edit-button"
-                    >
-                        <PencilSquareIcon
-                            style={{
-                                width: "20px",
-                                height: "20px",
-                            }}
-                        />
-
-                        <span>
-                            Edit Profile
-                        </span>
-                    </button>
-                )}
 
             </div>
 
@@ -168,8 +145,8 @@ const Profile = () => {
 
             {success && (
                 <div className="profile-success">
-                    <CheckIcon />
-                    {success}
+                    <CheckIcon style={{ width: "16px", height: "16px", flexShrink: 0 }} />
+                    <span>{success}</span>
                 </div>
             )}
 
@@ -177,8 +154,8 @@ const Profile = () => {
 
             {error && (
                 <div className="profile-error-message">
-                    <XMarkIcon />
-                    {error}
+                    <XMarkIcon style={{ width: "16px", height: "16px", flexShrink: 0 }} />
+                    <span>{error}</span>
                 </div>
             )}
 
@@ -207,6 +184,17 @@ const Profile = () => {
                         Active account
                     </div>
 
+                    {!editing && (
+                        <button
+                            type="button"
+                            onClick={handleEdit}
+                            className="profile-edit-avatar-btn"
+                        >
+                            <PencilSquareIcon />
+                            <span>Edit Profile</span>
+                        </button>
+                    )}
+
                 </div>
 
                 {/* INFORMATION CARD */}
@@ -221,13 +209,31 @@ const Profile = () => {
                             </h2>
 
                             <p>
-                                Your account details
+                                {editing
+                                    ? "Update your personal profile details below"
+                                    : "Your personal account information"}
                             </p>
                         </div>
 
+                        {!editing ? (
+                            <button
+                                type="button"
+                                onClick={handleEdit}
+                                className="profile-edit-button"
+                            >
+                                <PencilSquareIcon />
+                                <span>Edit Profile</span>
+                            </button>
+                        ) : (
+                            <span className="profile-editing-badge">
+                                <PencilSquareIcon style={{ width: "16px", height: "16px" }} />
+                                Editing Mode
+                            </span>
+                        )}
+
                     </div>
 
-                    <form onSubmit={handleSubmit}>
+                    <form id="profile-form" onSubmit={handleSubmit}>
 
                         <div className="profile-form-grid">
 
@@ -314,7 +320,7 @@ const Profile = () => {
 
                         </div>
 
-                        {/* SAVE / CANCEL */}
+                        {/* SAVE / CANCEL ACTIONS */}
 
                         {editing && (
                             <div className="profile-form-actions">

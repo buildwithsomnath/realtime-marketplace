@@ -429,6 +429,21 @@ const StatCard = ({
 };
 
 
+const getImageUrl = (rawImage) => {
+    if (!rawImage) return null;
+    if (typeof rawImage !== "string") return null;
+    if (
+        rawImage.startsWith("http://") ||
+        rawImage.startsWith("https://") ||
+        rawImage.startsWith("data:")
+    ) {
+        return rawImage;
+    }
+    const backendHost = "http://localhost:8000";
+    const path = rawImage.startsWith("/") ? rawImage : `/${rawImage}`;
+    return `${backendHost}${path}`;
+};
+
 // =====================================
 // ITEM CARD
 // =====================================
@@ -454,8 +469,13 @@ const ItemCard = ({
             ? `₹${Number(item.price).toLocaleString("en-IN")}`
             : "Price unavailable";
 
-    // Django serializer returns the image URL
-    const image = item.image || null;
+    const rawImage =
+        item.image ||
+        item.image_url ||
+        item.thumbnail ||
+        null;
+
+    const image = getImageUrl(rawImage);
 
     // Your Django model uses is_sold, not status
     const itemStatus = item.is_sold

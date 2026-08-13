@@ -7,7 +7,29 @@ import { Link } from "react-router-dom";
 import "../styles/cards.css";
 
 
+const getImageUrl = (rawImage) => {
+    if (!rawImage) return null;
+    if (typeof rawImage !== "string") return null;
+    if (
+        rawImage.startsWith("http://") ||
+        rawImage.startsWith("https://") ||
+        rawImage.startsWith("data:")
+    ) {
+        return rawImage;
+    }
+    const backendHost = "http://localhost:8000";
+    const path = rawImage.startsWith("/") ? rawImage : `/${rawImage}`;
+    return `${backendHost}${path}`;
+};
+
 const ItemCard = ({ item }) => {
+    const rawImage =
+        item.image ||
+        item.image_url ||
+        item.thumbnail ||
+        null;
+
+    const image = getImageUrl(rawImage);
 
     return (
         <article className="item-card">
@@ -20,10 +42,13 @@ const ItemCard = ({ item }) => {
 
                 <div className="item-card-image">
 
-                    {item.image ? (
+                    {image ? (
                         <img
-                            src={item.image}
+                            src={image}
                             alt={item.name || "Item"}
+                            onError={(e) => {
+                                e.currentTarget.style.display = "none";
+                            }}
                         />
                     ) : (
                         <div className="item-card-placeholder">

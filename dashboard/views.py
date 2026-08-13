@@ -27,6 +27,7 @@ class DashboardView(APIView):
         recent_items = DashboardItemSerializer(
             items.order_by("-created_at")[:5],
             many=True,
+            context={"request": request},
         )
 
         return Response({
@@ -59,6 +60,7 @@ class MyItemsView(APIView):
         serializer = DashboardItemSerializer(
             items,
             many=True,
+            context={"request": request},
         )
 
         return Response(serializer.data)

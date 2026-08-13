@@ -183,11 +183,22 @@ const ItemDetails = () => {
         );
 
 
-    // --------------------------------
-    // Image
-    // --------------------------------
+    const getImageUrl = (rawImage) => {
+        if (!rawImage) return null;
+        if (typeof rawImage !== "string") return null;
+        if (
+            rawImage.startsWith("http://") ||
+            rawImage.startsWith("https://") ||
+            rawImage.startsWith("data:")
+        ) {
+            return rawImage;
+        }
+        const backendHost = "http://localhost:8000";
+        const path = rawImage.startsWith("/") ? rawImage : `/${rawImage}`;
+        return `${backendHost}${path}`;
+    };
 
-    const imageUrl = item.image;
+    const imageUrl = getImageUrl(item.image);
 
 
     return (

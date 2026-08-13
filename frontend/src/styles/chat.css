@@ -171,7 +171,7 @@
 ========================================= */
 
 .chat-error {
-    width: min(900px, calc(100% - 32px));
+    width: min(1200px, calc(100% - 48px));
 
     margin: 12px auto 0;
     padding: 12px 16px;
@@ -191,7 +191,7 @@
 ========================================= */
 
 .chat-item-banner {
-    width: min(900px, calc(100% - 32px));
+    width: min(1200px, calc(100% - 48px));
 
     display: flex;
     align-items: center;
@@ -305,7 +305,7 @@
 ========================================= */
 
 .chat-messages {
-    width: min(900px, calc(100% - 32px));
+    width: min(1200px, calc(100% - 48px));
 
     flex: 1;
 
@@ -362,7 +362,7 @@
 /* Bubble */
 
 .chat-bubble {
-    max-width: min(70%, 560px);
+    max-width: 100%;
 
     padding: 10px 14px;
 
@@ -491,7 +491,7 @@
     bottom: 0;
     z-index: 20;
 
-    width: min(900px, calc(100% - 32px));
+    width: min(1200px, calc(100% - 48px));
 
     display: flex;
     align-items: center;
@@ -806,7 +806,7 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    max-width: min(70%, 560px);
+    max-width: min(68%, 720px);
 }
 
 .chat-message-mine .chat-bubble-wrapper {
