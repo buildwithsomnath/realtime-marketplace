@@ -59,7 +59,7 @@
     color: var(--accent);
 }
 
-.auth-brand > p {
+.auth-brand>p {
     max-width: 500px;
 
     margin-top: 24px;
@@ -389,7 +389,7 @@
         font-size: 48px;
     }
 
-    .auth-brand > p {
+    .auth-brand>p {
         margin-left: auto;
         margin-right: auto;
     }
@@ -415,11 +415,12 @@
         font-size: 42px;
     }
 
-    .auth-brand > p {
+    .auth-brand>p {
         font-size: 15px;
     }
 
 }
+
 .auth-page {
     min-height: calc(100vh - 80px);
     display: flex;
@@ -484,7 +485,7 @@
     color: #aa3bff;
 }
 
-.auth-info > p {
+.auth-info>p {
     max-width: 500px;
 
     font-size: 17px;
@@ -780,7 +781,7 @@
         font-size: 42px;
     }
 
-    .auth-info > p {
+    .auth-info>p {
         margin: 0 auto;
     }
 
@@ -799,7 +800,7 @@
         letter-spacing: -1.3px;
     }
 
-    .auth-info > p {
+    .auth-info>p {
         font-size: 15px;
     }
 

@@ -45,7 +45,7 @@
     width: 100%;
 }
 
-.search-input-wrapper > svg {
+.search-input-wrapper>svg {
     position: absolute;
     left: 16px;
     top: 50%;

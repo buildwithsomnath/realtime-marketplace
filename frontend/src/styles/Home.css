@@ -112,15 +112,49 @@
 }
 
 .hero-card-status {
-    padding: 5px 9px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
 
-    color: var(--success);
-    background: #f0fdf4;
+    padding: 5px 11px;
 
+    color: #15803d !important;
+    background: #f0fdf4 !important;
+
+    border: 1px solid #bbf7d0 !important;
     border-radius: 999px;
 
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 700;
+}
+
+.hero-card-status span {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #22c55e !important;
+    box-shadow: 0 0 6px rgba(34, 197, 94, 0.8) !important;
+    animation: status-pulse 2s infinite;
+}
+
+[data-theme="dark"] .hero-card-status {
+    background: rgba(34, 197, 94, 0.18) !important;
+    color: #22c55e !important;
+    border-color: rgba(34, 197, 94, 0.4) !important;
+}
+
+[data-theme="dark"] .hero-card-status span {
+    background-color: #22c55e !important;
+    box-shadow: 0 0 10px #22c55e !important;
+}
+
+[data-theme="dark"] .cta-box {
+    background: linear-gradient(135deg, #1e1b4b 0%, #0f172a 100%);
+    border: 1px solid #334155;
+}
+
+[data-theme="dark"] .cta-description {
+    color: #cbd5e1;
 }
 
 .hero-product {
@@ -399,4 +433,90 @@
 .feature-card p {
     color: var(--text);
     font-size: 15px;
+}
+
+/* =========================================
+   DARK MODE FOR HOME PAGE
+========================================= */
+
+[data-theme="dark"] .hero {
+    background:
+        radial-gradient(
+            circle at 80% 20%,
+            rgba(99, 102, 241, 0.18),
+            transparent 45%
+        ),
+        #0f172a;
+}
+
+[data-theme="dark"] .hero-card,
+[data-theme="dark"] .features,
+[data-theme="dark"] .feature-card {
+    background: #1e293b;
+    border-color: #334155;
+    color: #f8fafc;
+}
+
+[data-theme="dark"] .hero-badge {
+    background: rgba(99, 102, 241, 0.2);
+    color: #818cf8;
+}
+
+[data-theme="dark"] .hero-badge-dot {
+    background: #818cf8;
+}
+
+[data-theme="dark"] .hero-title {
+    color: #f8fafc;
+}
+
+[data-theme="dark"] .hero-title span {
+    color: #818cf8;
+}
+
+[data-theme="dark"] .hero-description,
+[data-theme="dark"] .section-description,
+[data-theme="dark"] .feature-card p {
+    color: #94a3b8;
+}
+
+[data-theme="dark"] .hero-card-title,
+[data-theme="dark"] .section-title,
+[data-theme="dark"] .feature-card h3 {
+    color: #f8fafc;
+}
+
+[data-theme="dark"] .hero-product {
+    border-bottom-color: #334155;
+}
+
+[data-theme="dark"] .hero-product-image {
+    background: #0f172a;
+}
+
+[data-theme="dark"] .hero-product-image svg {
+    color: #64748b;
+}
+
+[data-theme="dark"] .hero-product-name,
+[data-theme="dark"] .hero-product-price {
+    color: #f8fafc;
+}
+
+[data-theme="dark"] .hero-product-meta {
+    color: #94a3b8;
+}
+
+[data-theme="dark"] .feature-icon {
+    background: rgba(99, 102, 241, 0.2);
+    color: #818cf8;
+}
+
+[data-theme="dark"] .cta-box {
+    background: linear-gradient(135deg, #1e1b4b 0%, #0f172a 100%);
+    border: 1px solid #334155;
+}
+
+[data-theme="dark"] .cta-description {
+    color: #cbd5e1;
 }

@@ -323,7 +323,7 @@
     display: block;
 }
 
-.my-item-image > svg {
+.my-item-image>svg {
     width: 42px;
     height: 42px;
 

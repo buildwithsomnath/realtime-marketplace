@@ -48,6 +48,281 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
+[data-theme="dark"] {
+    --primary: #6366f1;
+    --primary-dark: #4f46e5;
+    --primary-light: #1e1b4b;
+
+    --success: #22c55e;
+    --danger: #ef4444;
+    --warning: #f59e0b;
+
+    --text-primary: #ffffff;
+    --text-secondary: #cbd5e1;
+    --text-muted: #94a3b8;
+    --text-h: #ffffff;
+    --text: #ffffff;
+    --accent: #818cf8;
+
+    --background: #0f172a;
+    --surface: #1e293b;
+    --bg: #1e293b;
+
+    --border: #334155;
+    --border-light: #1e293b;
+
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    --shadow-lg: 0 12px 30px rgba(0, 0, 0, 0.6);
+
+    color: #ffffff;
+    background: var(--background);
+}
+
+[data-theme="dark"] body,
+[data-theme="dark"] #root {
+    background: var(--background);
+    color: #ffffff;
+}
+
+/* -------------------- */
+/* Universal Dark Mode Text to White */
+/* -------------------- */
+
+[data-theme="dark"] h1,
+[data-theme="dark"] h2,
+[data-theme="dark"] h3,
+[data-theme="dark"] h4,
+[data-theme="dark"] h5,
+[data-theme="dark"] h6,
+[data-theme="dark"] label,
+[data-theme="dark"] strong,
+[data-theme="dark"] b,
+[data-theme="dark"] .dashboard-header h1,
+[data-theme="dark"] .conversations-header h1,
+[data-theme="dark"] .create-item-header h1,
+[data-theme="dark"] .edit-item-header h1,
+[data-theme="dark"] .my-items-header h1,
+[data-theme="dark"] .form-card-header h2,
+[data-theme="dark"] .auth-header h1,
+[data-theme="dark"] .item-details-title,
+[data-theme="dark"] .item-card-title,
+[data-theme="dark"] .item-card-price,
+[data-theme="dark"] .my-item-content h2,
+[data-theme="dark"] .conversation-user-name,
+[data-theme="dark"] .profile-user-name,
+[data-theme="dark"] .hero-title,
+[data-theme="dark"] .section-title,
+[data-theme="dark"] .cta-title,
+[data-theme="dark"] .form-group label {
+    color: #ffffff !important;
+}
+
+[data-theme="dark"] p,
+[data-theme="dark"] span:not(.chat-status-icon-dot):not(.status-dot):not(.hero-badge-dot):not(.dot),
+[data-theme="dark"] div:not(.chat-message-mine *),
+[data-theme="dark"] a:not(.btn-primary):not(.profile-edit-button):not(.my-items-create-button),
+[data-theme="dark"] li,
+[data-theme="dark"] td,
+[data-theme="dark"] th {
+    color: #f1f5f9;
+}
+
+[data-theme="dark"] .dashboard-header p,
+[data-theme="dark"] .conversations-header p,
+[data-theme="dark"] .create-item-header p,
+[data-theme="dark"] .edit-item-header p,
+[data-theme="dark"] .my-items-header p,
+[data-theme="dark"] .form-card-header p,
+[data-theme="dark"] .auth-header p,
+[data-theme="dark"] .hero-description,
+[data-theme="dark"] .section-description,
+[data-theme="dark"] .cta-description {
+    color: #cbd5e1 !important;
+}
+
+/* Green Status Signal Protection */
+[data-theme="dark"] .hero-card-status,
+[data-theme="dark"] .hero-card-status * {
+    color: #22c55e !important;
+}
+
+[data-theme="dark"] .hero-card-status span {
+    background-color: #22c55e !important;
+    background: #0f172a;
+}
+
+/* =========================================================
+   UNIFIED DARK MODE DESIGN SYSTEM
+   Page BG:            #0f172a
+   Card/Surface BG:    #1e293b
+   Input/Nested BG:    #0f172a
+   Border:             #334155
+   Primary Text:       #ffffff
+   Secondary Text:     #94a3b8
+========================================================= */
+
+/* 1. Master Page Backgrounds (#0f172a) */
+[data-theme="dark"],
+[data-theme="dark"] body,
+[data-theme="dark"] #root,
+[data-theme="dark"] .app-shell,
+[data-theme="dark"] .main-content,
+[data-theme="dark"] .page,
+[data-theme="dark"] .home,
+[data-theme="dark"] .hero,
+[data-theme="dark"] .features,
+[data-theme="dark"] .home-cta,
+[data-theme="dark"] .chat-page,
+[data-theme="dark"] .conversations-page,
+[data-theme="dark"] .dashboard-page,
+[data-theme="dark"] .create-item-page,
+[data-theme="dark"] .edit-item-page,
+[data-theme="dark"] .my-items-page,
+[data-theme="dark"] .item-details-page,
+[data-theme="dark"] .profile-page,
+[data-theme="dark"] .search-page,
+[data-theme="dark"] .auth-page,
+[data-theme="dark"] .footer {
+    background-color: #0f172a !important;
+    color: #ffffff !important;
+}
+
+/* 2. Master Surface & Component Cards (#1e293b) */
+[data-theme="dark"] .navbar,
+[data-theme="dark"] .card,
+[data-theme="dark"] .hero-card,
+[data-theme="dark"] .feature-card,
+[data-theme="dark"] .stat-card,
+[data-theme="dark"] .dashboard-card,
+[data-theme="dark"] .recent-items-card,
+[data-theme="dark"] .dashboard-item-card,
+[data-theme="dark"] .activity-card,
+[data-theme="dark"] .quick-actions-card,
+[data-theme="dark"] .conversation-card,
+[data-theme="dark"] .conversation-search,
+[data-theme="dark"] .filter-bar,
+[data-theme="dark"] .search-filter-card,
+[data-theme="dark"] .search-input-wrapper,
+[data-theme="dark"] .form-card,
+[data-theme="dark"] .image-dropzone,
+[data-theme="dark"] .image-preview-card,
+[data-theme="dark"] .my-item-card,
+[data-theme="dark"] .profile-card,
+[data-theme="dark"] .item-card,
+[data-theme="dark"] .my-items-stat-card,
+[data-theme="dark"] .my-items-toolbar,
+[data-theme="dark"] .my-items-search,
+[data-theme="dark"] .my-items-filter,
+[data-theme="dark"] .my-items-filter select,
+[data-theme="dark"] .item-details-image-card,
+[data-theme="dark"] .item-details-info-card,
+[data-theme="dark"] .seller-card,
+[data-theme="dark"] .auth-card,
+[data-theme="dark"] .auth-info-badge,
+[data-theme="dark"] .auth-benefit-icon,
+[data-theme="dark"] .chat-header,
+[data-theme="dark"] .chat-composer,
+[data-theme="dark"] .chat-item-banner,
+[data-theme="dark"] .chat-reaction-picker,
+[data-theme="dark"] .chat-reaction-pill,
+[data-theme="dark"] .chat-message-theirs .chat-bubble,
+[data-theme="dark"] .btn-secondary,
+[data-theme="dark"] .no-results-card,
+[data-theme="dark"] .cta-box {
+    background-color: #1e293b !important;
+    border-color: #334155 !important;
+    color: #ffffff !important;
+}
+
+/* 3. Master Form Inputs & Inner Dropdowns (#0f172a) */
+[data-theme="dark"] input,
+[data-theme="dark"] textarea,
+[data-theme="dark"] select,
+[data-theme="dark"] .chat-message-theirs .chat-bubble {
+    background-color: #1e293b !important;
+    border-color: #334155 !important;
+    color: #ffffff !important;
+}
+
+[data-theme="dark"] .navbar {
+    background-color: rgba(30, 41, 59, 0.94) !important;
+    border-color: #334155 !important;
+}
+
+[data-theme="dark"] .footer {
+    background-color: #0f172a !important;
+    border-top-color: #334155 !important;
+    color: #94a3b8 !important;
+}
+
+/* -------------------- */
+/* Button Styling in Dark Mode */
+/* -------------------- */
+
+[data-theme="dark"] .btn-secondary {
+    background-color: #1e293b !important;
+    color: #ffffff !important;
+    border-color: #334155 !important;
+}
+
+[data-theme="dark"] .btn-secondary:hover {
+    background-color: #334155 !important;
+    color: #ffffff !important;
+    border-color: #475569 !important;
+}
+
+[data-theme="dark"] .btn-primary {
+    background-color: #6366f1 !important;
+    color: #ffffff !important;
+    border-color: #6366f1 !important;
+}
+
+[data-theme="dark"] .btn-primary:hover {
+    background-color: #4f46e5 !important;
+    color: #ffffff !important;
+}
+
+/* -------------------- */
+/* Black-to-White Element Inversion in Dark Mode */
+/* -------------------- */
+
+[data-theme="dark"] .dashboard-add-button,
+[data-theme="dark"] .my-items-create-button,
+[data-theme="dark"] .profile-edit-button,
+[data-theme="dark"] .create-item-submit,
+[data-theme="dark"] .edit-item-submit,
+[data-theme="dark"] .auth-submit-btn,
+[data-theme="dark"] .btn-dark,
+[data-theme="dark"] .cta-box {
+    background-color: #ffffff !important;
+    color: #0f172a !important;
+    border-color: #ffffff !important;
+}
+
+[data-theme="dark"] .dashboard-add-button *,
+[data-theme="dark"] .my-items-create-button *,
+[data-theme="dark"] .profile-edit-button *,
+[data-theme="dark"] .create-item-submit *,
+[data-theme="dark"] .edit-item-submit *,
+[data-theme="dark"] .auth-submit-btn *,
+[data-theme="dark"] .btn-dark *,
+[data-theme="dark"] .cta-box *,
+[data-theme="dark"] .cta-title,
+[data-theme="dark"] .cta-description {
+    color: #0f172a !important;
+}
+
+[data-theme="dark"] .dashboard-add-button:hover,
+[data-theme="dark"] .my-items-create-button:hover,
+[data-theme="dark"] .profile-edit-button:hover,
+[data-theme="dark"] .create-item-submit:hover,
+[data-theme="dark"] .edit-item-submit:hover,
+[data-theme="dark"] .auth-submit-btn:hover {
+    background-color: #e2e8f0 !important;
+    color: #0f172a !important;
+}
+
 * {
     box-sizing: border-box;
 }
@@ -210,6 +485,7 @@ img {
         font-size: 26px;
     }
 }
+
 .app-shell {
     min-height: 100vh;
 

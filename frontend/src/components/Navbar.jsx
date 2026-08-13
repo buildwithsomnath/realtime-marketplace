@@ -5,14 +5,18 @@ import {
     MagnifyingGlassIcon,
     ChatBubbleLeftRightIcon,
     UserCircleIcon,
+    SunIcon,
+    MoonIcon,
 } from "@heroicons/react/24/outline";
 
 import useAuth from "../hooks/useAuth";
+import { useTheme } from "../context/ThemeContext";
 
 import "../styles/navbar.css";
 
 const Navbar = () => {
     const { authenticated, logout } = useAuth();
+    const { theme, toggleTheme } = useTheme();
     const navigate = useNavigate();
 
     const handleLogout = async () => {
@@ -99,6 +103,24 @@ const Navbar = () => {
 
                 {/* Right Actions */}
                 <div className="navbar-actions">
+
+                    {/* Dark/Light Mode Toggle */}
+                    <button
+                        type="button"
+                        className="theme-toggle-btn"
+                        onClick={toggleTheme}
+                        title={
+                            theme === "dark"
+                                ? "Switch to Light Mode"
+                                : "Switch to Dark Mode"
+                        }
+                    >
+                        {theme === "dark" ? (
+                            <SunIcon style={{ width: 20, height: 20 }} />
+                        ) : (
+                            <MoonIcon style={{ width: 20, height: 20 }} />
+                        )}
+                    </button>
 
                     {!authenticated ? (
 
