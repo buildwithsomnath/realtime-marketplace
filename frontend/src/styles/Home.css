@@ -443,80 +443,82 @@
     background:
         radial-gradient(
             circle at 80% 20%,
-            rgba(99, 102, 241, 0.18),
-            transparent 45%
+            rgba(129, 140, 248, 0.25),
+            transparent 50%
         ),
-        #0f172a;
+        #0f172a !important;
 }
 
 [data-theme="dark"] .hero-card,
 [data-theme="dark"] .features,
 [data-theme="dark"] .feature-card {
-    background: #1e293b;
-    border-color: #334155;
-    color: #f8fafc;
+    background: #1e293b !important;
+    border-color: #334155 !important;
+    color: #ffffff !important;
 }
 
 [data-theme="dark"] .hero-badge {
-    background: rgba(99, 102, 241, 0.2);
-    color: #818cf8;
+    background: rgba(129, 140, 248, 0.2) !important;
+    color: #818cf8 !important;
+    border: 1px solid rgba(129, 140, 248, 0.4) !important;
 }
 
 [data-theme="dark"] .hero-badge-dot {
-    background: #818cf8;
+    background-color: #818cf8 !important;
+    box-shadow: 0 0 8px #818cf8 !important;
 }
 
 [data-theme="dark"] .hero-title {
-    color: #f8fafc;
+    color: #ffffff !important;
 }
 
 [data-theme="dark"] .hero-title span {
-    color: #818cf8;
+    color: #818cf8 !important;
 }
 
 [data-theme="dark"] .hero-description,
 [data-theme="dark"] .section-description,
 [data-theme="dark"] .feature-card p {
-    color: #94a3b8;
+    color: #94a3b8 !important;
 }
 
 [data-theme="dark"] .hero-card-title,
 [data-theme="dark"] .section-title,
 [data-theme="dark"] .feature-card h3 {
-    color: #f8fafc;
+    color: #ffffff !important;
 }
 
 [data-theme="dark"] .hero-product {
-    border-bottom-color: #334155;
+    border-bottom-color: #334155 !important;
 }
 
 [data-theme="dark"] .hero-product-image {
-    background: #0f172a;
+    background: #0f172a !important;
 }
 
 [data-theme="dark"] .hero-product-image svg {
-    color: #64748b;
+    color: #818cf8 !important;
 }
 
 [data-theme="dark"] .hero-product-name,
 [data-theme="dark"] .hero-product-price {
-    color: #f8fafc;
+    color: #ffffff !important;
 }
 
 [data-theme="dark"] .hero-product-meta {
-    color: #94a3b8;
+    color: #94a3b8 !important;
 }
 
 [data-theme="dark"] .feature-icon {
-    background: rgba(99, 102, 241, 0.2);
-    color: #818cf8;
+    background: rgba(129, 140, 248, 0.2) !important;
+    color: #818cf8 !important;
 }
 
 [data-theme="dark"] .cta-box {
-    background: linear-gradient(135deg, #1e1b4b 0%, #0f172a 100%);
-    border: 1px solid #334155;
+    background: linear-gradient(135deg, rgba(129, 140, 248, 0.2) 0%, #1e293b 100%) !important;
+    border: 1px solid rgba(129, 140, 248, 0.4) !important;
 }
 
 [data-theme="dark"] .cta-description {
-    color: #cbd5e1;
+    color: #cbd5e1 !important;
 }

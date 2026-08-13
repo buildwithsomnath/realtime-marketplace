@@ -49,17 +49,17 @@
 }
 
 [data-theme="dark"] {
-    --primary: #6366f1;
-    --primary-dark: #4f46e5;
-    --primary-light: #1e1b4b;
+    --primary: #818cf8;
+    --primary-dark: #6366f1;
+    --primary-light: rgba(129, 140, 248, 0.15);
 
     --success: #22c55e;
     --danger: #ef4444;
     --warning: #f59e0b;
 
     --text-primary: #ffffff;
-    --text-secondary: #cbd5e1;
-    --text-muted: #94a3b8;
+    --text-secondary: #94a3b8;
+    --text-muted: #64748b;
     --text-h: #ffffff;
     --text: #ffffff;
     --accent: #818cf8;
@@ -69,14 +69,14 @@
     --bg: #1e293b;
 
     --border: #334155;
-    --border-light: #1e293b;
+    --border-light: #334155;
 
     --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
     --shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
     --shadow-lg: 0 12px 30px rgba(0, 0, 0, 0.6);
 
     color: #ffffff;
-    background: var(--background);
+    background: #0f172a;
 }
 
 [data-theme="dark"] body,
@@ -158,11 +158,54 @@
    Card/Surface BG:    #1e293b
    Input/Nested BG:    #0f172a
    Border:             #334155
+   Primary Accent:     #818cf8
    Primary Text:       #ffffff
    Secondary Text:     #94a3b8
 ========================================================= */
 
-/* 1. Master Page Backgrounds (#0f172a) */
+/* 1. Master Accent Highlights (#818cf8) */
+[data-theme="dark"] a:hover,
+[data-theme="dark"] .conversations-eyebrow,
+[data-theme="dark"] .search-eyebrow,
+[data-theme="dark"] .my-items-eyebrow,
+[data-theme="dark"] .page-label,
+[data-theme="dark"] .item-card-category,
+[data-theme="dark"] .hero-title span,
+[data-theme="dark"] .auth-info h1 span,
+[data-theme="dark"] .auth-brand h1 span,
+[data-theme="dark"] .navbar-link.active,
+[data-theme="dark"] .hero-badge,
+[data-theme="dark"] .feature-icon,
+[data-theme="dark"] .auth-info-badge svg,
+[data-theme="dark"] .auth-benefit-icon svg {
+    color: #818cf8 !important;
+}
+
+[data-theme="dark"] .hero-badge-dot {
+    background-color: #818cf8 !important;
+}
+
+[data-theme="dark"] .btn-primary {
+    background-color: #818cf8 !important;
+    color: #0f172a !important;
+    border-color: #818cf8 !important;
+    font-weight: 700 !important;
+}
+
+[data-theme="dark"] .btn-primary:hover {
+    background-color: #6366f1 !important;
+    color: #ffffff !important;
+    border-color: #6366f1 !important;
+}
+
+[data-theme="dark"] input:focus,
+[data-theme="dark"] textarea:focus,
+[data-theme="dark"] select:focus {
+    border-color: #818cf8 !important;
+    box-shadow: 0 0 0 3px rgba(129, 140, 248, 0.25) !important;
+}
+
+/* 2. Master Page Backgrounds (#0f172a) */
 [data-theme="dark"],
 [data-theme="dark"] body,
 [data-theme="dark"] #root,
@@ -188,7 +231,7 @@
     color: #ffffff !important;
 }
 
-/* 2. Master Surface & Component Cards (#1e293b) */
+/* 3. Master Surface & Component Cards (#1e293b) */
 [data-theme="dark"] .navbar,
 [data-theme="dark"] .card,
 [data-theme="dark"] .hero-card,
@@ -235,12 +278,16 @@
     color: #ffffff !important;
 }
 
-/* 3. Master Form Inputs & Inner Dropdowns (#0f172a) */
+/* 4. Master Form Inputs & Inner Dropdowns (#0f172a) */
 [data-theme="dark"] input,
 [data-theme="dark"] textarea,
 [data-theme="dark"] select,
+[data-theme="dark"] option,
+[data-theme="dark"] .item-card-image,
+[data-theme="dark"] .my-item-image,
+[data-theme="dark"] .hero-product-image,
 [data-theme="dark"] .chat-message-theirs .chat-bubble {
-    background-color: #1e293b !important;
+    background-color: #0f172a !important;
     border-color: #334155 !important;
     color: #ffffff !important;
 }

@@ -372,10 +372,19 @@
 }
 
 .chat-message-mine .chat-bubble {
-    background: #2563eb;
-    color: #ffffff;
+    background: #818cf8 !important;
+    color: #0f172a !important;
+    font-weight: 600;
 
     border-bottom-right-radius: 5px;
+}
+
+.chat-message-mine .chat-bubble p {
+    color: #0f172a !important;
+}
+
+.chat-message-mine .chat-bubble span {
+    color: rgba(15, 23, 42, 0.85) !important;
 }
 
 .chat-message-theirs .chat-bubble {

@@ -90,9 +90,6 @@ const Dashboard = () => {
         dashboard?.recently_added_items ||
         [];
 
-    const notifications =
-        dashboard?.notifications || [];
-
     const profile =
         dashboard?.profile ||
         dashboard?.user ||
@@ -355,8 +352,8 @@ const Dashboard = () => {
                             {profile?.username
                                 ?.charAt(0)
                                 ?.toUpperCase() || (
-                                <UserCircleIcon />
-                            )}
+                                    <UserCircleIcon />
+                                )}
                         </div>
 
                         <div className="profile-details">
@@ -389,53 +386,6 @@ const Dashboard = () => {
 
                 </section>
 
-                {/* Notifications */}
-
-                <section className="dashboard-panel">
-
-                    <div className="panel-header">
-
-                        <div>
-                            <span className="panel-label">
-                                Updates
-                            </span>
-
-                            <h2>
-                                Notifications
-                            </h2>
-                        </div>
-
-                        <BellIcon className="panel-header-icon" />
-
-                    </div>
-
-                    <div className="notification-list">
-
-                        {notifications.length > 0 ? (
-                            notifications
-                                .slice(0, 5)
-                                .map((notification) => (
-                                    <NotificationRow
-                                        key={
-                                            notification.id
-                                        }
-                                        notification={
-                                            notification
-                                        }
-                                    />
-                                ))
-                        ) : (
-                            <EmptyState
-                                icon={<BellIcon />}
-                                title="You're all caught up"
-                                description="New marketplace updates will appear here."
-                            />
-                        )}
-
-                    </div>
-
-                </section>
-
             </div>
 
         </div>
@@ -457,9 +407,8 @@ const StatCard = ({
 }) => {
     return (
         <div
-            className={`stat-card ${
-                accent ? "stat-card-accent" : ""
-            } ${wide ? "stat-card-wide" : ""}`}
+            className={`stat-card ${accent ? "stat-card-accent" : ""
+                } ${wide ? "stat-card-wide" : ""}`}
         >
 
             <div className="stat-card-top">
@@ -581,9 +530,8 @@ const RecentItem = ({ item }) => {
         }
 
         // Backend URL
-        return `http://127.0.0.1:8000${
-            image.startsWith("/") ? image : `/${image}`
-        }`;
+        return `http://127.0.0.1:8000${image.startsWith("/") ? image : `/${image}`
+            }`;
     };
 
     const imageUrl = getImageUrl(item.image);
@@ -646,39 +594,6 @@ const RecentItem = ({ item }) => {
     );
 };
 
-
-/* ============================================
-   NOTIFICATION
-============================================ */
-
-const NotificationRow = ({
-    notification,
-}) => {
-    return (
-        <div className="notification-row">
-
-            <div className="notification-icon">
-                <BellIcon />
-            </div>
-
-            <div>
-
-                <strong>
-                    {notification.title ||
-                        "Marketplace update"}
-                </strong>
-
-                <p>
-                    {notification.message ||
-                        notification.content ||
-                        ""}
-                </p>
-
-            </div>
-
-        </div>
-    );
-};
 
 
 /* ============================================
