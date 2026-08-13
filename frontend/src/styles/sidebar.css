@@ -1,0 +1,138 @@
+.sidebar {
+    width: 240px;
+    min-height: calc(100vh - 64px);
+
+    flex-shrink: 0;
+
+    background: var(--bg);
+
+    border-right: 1px solid var(--border);
+
+    padding: 24px 16px;
+
+    box-sizing: border-box;
+}
+
+.sidebar-header {
+    padding: 0 12px 24px;
+}
+
+.sidebar-title {
+    margin: 0;
+
+    font-size: 18px;
+    font-weight: 700;
+
+    color: var(--text-h);
+}
+
+.sidebar-subtitle {
+    margin-top: 4px;
+
+    font-size: 13px;
+
+    color: var(--text);
+}
+
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.sidebar-link {
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    width: 100%;
+
+    padding: 11px 12px;
+
+    border-radius: 10px;
+
+    box-sizing: border-box;
+
+    text-decoration: none;
+
+    color: var(--text);
+
+    font-size: 15px;
+    font-weight: 500;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.sidebar-link:hover {
+    background: var(--accent-bg);
+
+    color: var(--text-h);
+
+    transform: translateX(2px);
+}
+
+.sidebar-link.active {
+    background: var(--accent-bg);
+
+    color: var(--accent);
+
+    font-weight: 600;
+}
+
+.sidebar-icon {
+    width: 20px;
+    height: 20px;
+
+    flex-shrink: 0;
+}
+
+.sidebar-link-text {
+    white-space: nowrap;
+}
+
+
+/* =========================
+   Mobile
+========================= */
+
+@media (max-width: 768px) {
+
+    .sidebar {
+        width: 100%;
+
+        min-height: auto;
+
+        padding: 12px;
+
+        border-right: none;
+
+        border-bottom: 1px solid var(--border);
+    }
+
+    .sidebar-header {
+        display: none;
+    }
+
+    .sidebar-nav {
+        flex-direction: row;
+
+        overflow-x: auto;
+
+        gap: 6px;
+
+        padding-bottom: 2px;
+    }
+
+    .sidebar-link {
+        width: auto;
+
+        flex-shrink: 0;
+
+        padding: 10px 14px;
+    }
+
+}

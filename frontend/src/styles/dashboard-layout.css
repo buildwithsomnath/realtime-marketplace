@@ -1,0 +1,45 @@
+.dashboard-layout {
+    min-height: 100vh;
+    background: var(--bg);
+}
+
+.dashboard-layout-body {
+    display: flex;
+    min-height: calc(100vh - 64px);
+}
+
+.dashboard-main {
+    flex: 1;
+    min-width: 0;
+
+    padding: 32px 40px;
+
+    box-sizing: border-box;
+    overflow-x: hidden;
+}
+
+
+/* =========================
+   Tablet
+========================= */
+
+@media (max-width: 1024px) {
+    .dashboard-main {
+        padding: 24px;
+    }
+}
+
+
+/* =========================
+   Mobile
+========================= */
+
+@media (max-width: 768px) {
+    .dashboard-layout-body {
+        display: block;
+    }
+
+    .dashboard-main {
+        padding: 20px 16px;
+    }
+}
