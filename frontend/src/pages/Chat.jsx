@@ -191,7 +191,10 @@ const Chat = () => {
                 : "ws:";
 
         const host =
-            window.location.host;
+            import.meta.env.VITE_WS_HOST ||
+            (window.location.port === "5173" || window.location.port === "3000"
+                ? "127.0.0.1:8000"
+                : window.location.host);
 
         const wsUrl =
             `${protocol}//${host}` +
