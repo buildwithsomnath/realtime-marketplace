@@ -6,12 +6,16 @@ from item.serializers import ItemSerializer
 
 class MessageSerializer(serializers.ModelSerializer):
     sender = serializers.StringRelatedField(read_only=True)
+    sender_id = serializers.ReadOnlyField(source="sender.id")
+    sender_username = serializers.ReadOnlyField(source="sender.username")
 
     class Meta:
         model = Message
         fields = [
             "id",
             "sender",
+            "sender_id",
+            "sender_username",
             "content",
             "is_read",
             "created_at",

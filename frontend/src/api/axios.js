@@ -1,26 +1,32 @@
-import api from "./axios";
+import axios from "axios";
 
-export const getConversations = () => {
-    return api.get("/conversations/");
-};
+const API_BASE_URL =
+    import.meta.env.VITE_API_BASE_URL ||
+    "http://localhost:8000/api/";
 
-export const getConversation = (id) => {
-    return api.get(`/conversations/${id}/`);
-};
+const api = axios.create({
+    baseURL: API_BASE_URL,
+    headers: {
+        "Content-Type": "application/json",
+    },
+});
 
-export const createConversation = (itemId) => {
-    console.log("createConversation itemId:", itemId);
+api.interceptors.request.use(
+    (config) => {
+        const token =
+            localStorage.getItem("access") ||
+            localStorage.getItem("access_token") ||
+            localStorage.getItem("accessToken");
 
-    return api.post("/conversations/", {
-        item_id: Number(itemId),
-    });
-};
-
-export const sendMessage = (conversationId, content) => {
-    return api.post(
-        `/conversations/${conversationId}/messages/`,
-        {
-            content,
+        if (token) {
+            config.headers.Authorization = `Bearer ${token}`;
         }
-    );
-};
+
+        return config;
+    },
+    (error) => {
+        return Promise.reject(error);
+    }
+);
+
+export default api;

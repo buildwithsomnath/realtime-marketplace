@@ -17,6 +17,8 @@ import {
     createConversation,
 } from "../api/conversations";
 
+import useAuth from "../hooks/useAuth";
+
 import "../styles/conversations.css";
 
 const Conversations = () => {
@@ -452,6 +454,8 @@ const ConversationCard = ({
     conversation,
 }) => {
 
+    const { user: currentUser } = useAuth();
+
     const item =
         conversation.item || null;
 
@@ -463,39 +467,63 @@ const ConversationCard = ({
     const participants =
         conversation.participants || [];
 
-    /*
-     * Try to display the first participant.
-     * If your backend includes the current user
-     * in participants, you may want to filter
-     * that user out here.
-     */
+    const otherParticipant =
+        participants.find((p) => {
+            const pName =
+                typeof p === "string"
+                    ? p
+                    : p?.username || p?.name;
 
-    let participantName =
-        "Marketplace user";
+            const pId =
+                typeof p === "object"
+                    ? p?.id
+                    : null;
 
-    if (
-        Array.isArray(participants) &&
-        participants.length > 0
-    ) {
-        const participant =
-            participants[0];
+            if (currentUser) {
+                if (
+                    pId &&
+                    Number(pId) ===
+                    Number(currentUser.id)
+                ) {
+                    return false;
+                }
 
-        if (
-            typeof participant === "object"
-        ) {
-            participantName =
-                participant.username ||
-                participant.name ||
-                "Marketplace user";
-        } else {
-            participantName =
-                String(participant);
-        }
-    }
+                if (
+                    pName &&
+                    pName === currentUser.username
+                ) {
+                    return false;
+                }
+            }
+
+            return true;
+        });
+
+    const participant =
+        conversation.other_user ||
+        conversation.seller ||
+        conversation.buyer ||
+        otherParticipant ||
+        participants[0] ||
+        null;
+
+    const participantName =
+        typeof participant === "string"
+            ? participant
+            : participant?.username ||
+              participant?.name ||
+              "Marketplace user";
+
+    const messages =
+        conversation.messages || [];
+
+    const lastMsgObj =
+        messages[messages.length - 1];
 
     const lastMessage =
         conversation.last_message ||
         conversation.last_message_content ||
+        lastMsgObj?.content ||
         "Start a conversation";
 
     const unread =

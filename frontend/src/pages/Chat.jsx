@@ -18,7 +18,10 @@ import {
 
 import {
     getConversation,
+    sendMessage,
 } from "../api/conversations";
+
+import useAuth from "../hooks/useAuth";
 
 import "../styles/chat.css";
 
@@ -26,6 +29,8 @@ import "../styles/chat.css";
 const Chat = () => {
 
     const { id } = useParams();
+
+    const { user: currentUser } = useAuth();
 
     const [conversation, setConversation] =
         useState(null);
@@ -253,13 +258,19 @@ const Chat = () => {
 
                 if (
                     data.type ===
-                    "message"
+                    "message" ||
+                    data.content ||
+                    data.message
                 ) {
 
                     const incoming =
-                        data.message;
+                        data.message || data;
 
-                    if (!incoming) {
+                    if (
+                        !incoming ||
+                        (!incoming.content &&
+                         !incoming.message)
+                    ) {
                         return;
                     }
 
@@ -379,7 +390,7 @@ const Chat = () => {
     // SEND
     // =====================================
 
-    const handleSend = (event) => {
+    const handleSend = async (event) => {
 
         event.preventDefault();
 
@@ -396,30 +407,68 @@ const Chat = () => {
 
 
         if (
-            !socket ||
-            socket.readyState !==
+            socket &&
+            socket.readyState ===
                 WebSocket.OPEN
         ) {
 
-            setError(
-                "Chat connection is not available."
+            socket.send(
+                JSON.stringify({
+                    type: "send_message",
+                    content: text,
+                })
             );
 
+            setMessage("");
+            setError("");
             return;
         }
 
 
-        socket.send(
-            JSON.stringify({
-                type: "send_message",
-                content: text,
-            })
-        );
+        // Fallback to REST API when WS is not connected
+        try {
+            const response =
+                await sendMessage(id, text);
 
+            const newMsg =
+                response.data;
 
-        setMessage("");
+            setMessages(
+                (previous) => {
+                    const exists =
+                        previous.some(
+                            (msg) =>
+                                String(msg.id) ===
+                                String(newMsg.id)
+                        );
 
-        setError("");
+                    if (exists) {
+                        return previous;
+                    }
+
+                    return [
+                        ...previous,
+                        newMsg,
+                    ];
+                }
+            );
+
+            setMessage("");
+            setError("");
+
+        } catch (err) {
+
+            console.error(
+                "Failed to send message via REST:",
+                err
+            );
+
+            setError(
+                err.response?.data?.detail ||
+                "Failed to send message."
+            );
+
+        }
 
     };
 
@@ -485,10 +534,43 @@ const Chat = () => {
         conversation.participants ||
         [];
 
+    const otherParticipant =
+        participants.find((p) => {
+            const pName =
+                typeof p === "string"
+                    ? p
+                    : p?.username || p?.name;
+
+            const pId =
+                typeof p === "object"
+                    ? p?.id
+                    : null;
+
+            if (currentUser) {
+                if (
+                    pId &&
+                    Number(pId) ===
+                    Number(currentUser.id)
+                ) {
+                    return false;
+                }
+
+                if (
+                    pName &&
+                    pName === currentUser.username
+                ) {
+                    return false;
+                }
+            }
+
+            return true;
+        });
+
     const participant =
         conversation.other_user ||
         conversation.seller ||
         conversation.buyer ||
+        otherParticipant ||
         participants[0] ||
         null;
 
@@ -694,14 +776,29 @@ const Chat = () => {
                     messages.map(
                         (msg) => {
 
+                            const senderUsername =
+                                typeof msg.sender === "string"
+                                    ? msg.sender
+                                    : msg.sender?.username ||
+                                      msg.sender_username;
+
+                            const senderId =
+                                msg.sender_id ||
+                                (typeof msg.sender === "object"
+                                    ? msg.sender?.id
+                                    : null);
+
                             const mine =
                                 msg.is_mine ||
                                 msg.sender_is_me ||
-                                Number(
-                                    msg.sender?.id
-                                ) === Number(
-                                    conversation.current_user_id
-                                );
+                                (currentUser &&
+                                 senderId &&
+                                 Number(senderId) ===
+                                 Number(currentUser.id)) ||
+                                (currentUser &&
+                                 senderUsername &&
+                                 senderUsername ===
+                                 currentUser.username);
 
 
                             const content =
@@ -794,19 +891,13 @@ const Chat = () => {
                         )
                     }
                     placeholder="Write a message..."
-                    disabled={
-                        connectionStatus !==
-                        "connected"
-                    }
                 />
 
 
                 <button
                     type="submit"
                     disabled={
-                        !message.trim() ||
-                        connectionStatus !==
-                        "connected"
+                        !message.trim()
                     }
                 >
                     <PaperAirplaneIcon />

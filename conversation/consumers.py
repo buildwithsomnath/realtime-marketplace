@@ -147,6 +147,7 @@ class ConversationConsumer(
 
         await self.send_json({
             "type": "message",
+            "message": event["message"],
             **event["message"],
         })
 
@@ -187,6 +188,7 @@ class ConversationConsumer(
         return {
             "id": message.id,
             "content": message.content,
+            "sender": user.username,
             "sender_id": user.id,
             "sender_username": user.username,
             "created_at": message.created_at.isoformat(),

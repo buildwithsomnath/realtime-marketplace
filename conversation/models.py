@@ -52,3 +52,25 @@ class Message(models.Model):
 
     def __str__(self):
         return self.content[:40]
+
+
+class MessageReaction(models.Model):
+    message = models.ForeignKey(
+        Message,
+        related_name="reactions",
+        on_delete=models.CASCADE,
+    )
+    user = models.ForeignKey(
+        User,
+        related_name="message_reactions",
+        on_delete=models.CASCADE,
+    )
+    emoji = models.CharField(max_length=16)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ("message", "user", "emoji")
+        ordering = ["created_at"]
+
+    def __str__(self):
+        return f"{self.user.username} reacted {self.emoji} to message #{self.message.id}"
