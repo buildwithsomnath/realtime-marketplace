@@ -22,3 +22,12 @@ export const sendMessage = (conversationId, content) => {
         }
     );
 };
+
+export const toggleMessageReaction = (conversationId, messageId, emoji) => {
+    return api.post(
+        `/conversations/${conversationId}/messages/${messageId}/react/`,
+        {
+            emoji,
+        }
+    );
+};

@@ -7,7 +7,7 @@ from rest_framework.views import APIView
 
 from item.models import Item
 
-from .models import Conversation, Message
+from .models import Conversation, Message, MessageReaction
 from .serializers import (
     ConversationSerializer,
     MessageSerializer,
@@ -225,4 +225,60 @@ class MessageCreateView(APIView):
         return Response(
             serializer.data,
             status=status.HTTP_201_CREATED,
+        )
+
+
+class MessageReactionToggleView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    # ==========================================
+    # POST /api/conversations/<id>/messages/<message_id>/react/
+    # ==========================================
+
+    def post(self, request, pk, message_id):
+        conversation = get_object_or_404(
+            Conversation,
+            pk=pk,
+            participants=request.user,
+        )
+
+        message = get_object_or_404(
+            Message,
+            pk=message_id,
+            conversation=conversation,
+        )
+
+        emoji = request.data.get("emoji")
+
+        if not emoji:
+            return Response(
+                {
+                    "detail": "emoji is required."
+                },
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        existing = MessageReaction.objects.filter(
+            message=message,
+            user=request.user,
+            emoji=emoji,
+        ).first()
+
+        if existing:
+            existing.delete()
+        else:
+            MessageReaction.objects.create(
+                message=message,
+                user=request.user,
+                emoji=emoji,
+            )
+
+        serializer = MessageSerializer(
+            message,
+            context={"request": request},
+        )
+
+        return Response(
+            serializer.data,
+            status=status.HTTP_200_OK,
         )

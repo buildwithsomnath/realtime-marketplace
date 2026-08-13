@@ -1,13 +1,29 @@
 from rest_framework import serializers
 
-from .models import Conversation, Message
+from .models import Conversation, Message, MessageReaction
 from item.serializers import ItemSerializer
+
+
+class MessageReactionSerializer(serializers.ModelSerializer):
+    user_id = serializers.ReadOnlyField(source="user.id")
+    username = serializers.ReadOnlyField(source="user.username")
+
+    class Meta:
+        model = MessageReaction
+        fields = [
+            "id",
+            "user_id",
+            "username",
+            "emoji",
+            "created_at",
+        ]
 
 
 class MessageSerializer(serializers.ModelSerializer):
     sender = serializers.StringRelatedField(read_only=True)
     sender_id = serializers.ReadOnlyField(source="sender.id")
     sender_username = serializers.ReadOnlyField(source="sender.username")
+    reactions = MessageReactionSerializer(many=True, read_only=True)
 
     class Meta:
         model = Message
@@ -17,6 +33,7 @@ class MessageSerializer(serializers.ModelSerializer):
             "sender_id",
             "sender_username",
             "content",
+            "reactions",
             "is_read",
             "created_at",
         ]

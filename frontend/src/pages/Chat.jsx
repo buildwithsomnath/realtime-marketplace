@@ -14,17 +14,21 @@ import {
     PaperAirplaneIcon,
     UserCircleIcon,
     EllipsisVerticalIcon,
+    FaceSmileIcon,
 } from "@heroicons/react/24/outline";
 
 import {
     getConversation,
     sendMessage,
+    toggleMessageReaction,
 } from "../api/conversations";
 
 import useAuth from "../hooks/useAuth";
 
 import "../styles/chat.css";
 
+
+const REACTION_EMOJIS = ["👍", "❤️", "😂", "😮", "😢", "🔥"];
 
 const Chat = () => {
 
@@ -49,6 +53,12 @@ const Chat = () => {
 
     const [connectionStatus, setConnectionStatus] =
         useState("connecting");
+
+    const [partnerOnline, setPartnerOnline] =
+        useState(false);
+
+    const [activeReactionPickerId, setActiveReactionPickerId] =
+        useState(null);
 
     const socketRef =
         useRef(null);
@@ -250,6 +260,57 @@ const Chat = () => {
 
                     setConnectionStatus(
                         "connected"
+                    );
+
+                    return;
+                }
+
+                if (
+                    data.type ===
+                    "user_status"
+                ) {
+                    if (
+                        data.username &&
+                        data.username !==
+                        currentUser?.username
+                    ) {
+                        setPartnerOnline(
+                            data.status ===
+                            "online"
+                        );
+                    }
+                    return;
+                }
+
+                if (
+                    data.type ===
+                    "message_reaction"
+                ) {
+                    const {
+                        message_id,
+                        reactions,
+                    } = data;
+
+                    setMessages(
+                        (previous) =>
+                            previous.map(
+                                (msg) => {
+                                    if (
+                                        String(
+                                            msg.id
+                                        ) ===
+                                        String(
+                                            message_id
+                                        )
+                                    ) {
+                                        return {
+                                            ...msg,
+                                            reactions,
+                                        };
+                                    }
+                                    return msg;
+                                }
+                            )
                     );
 
                     return;
@@ -474,6 +535,70 @@ const Chat = () => {
 
 
     // =====================================
+    // TOGGLE REACTION
+    // =====================================
+
+    const handleToggleReaction = async (
+        messageId,
+        emoji
+    ) => {
+
+        setActiveReactionPickerId(null);
+
+        const socket =
+            socketRef.current;
+
+        if (
+            socket &&
+            socket.readyState ===
+                WebSocket.OPEN
+        ) {
+
+            socket.send(
+                JSON.stringify({
+                    type: "react_message",
+                    message_id: messageId,
+                    emoji,
+                })
+            );
+
+            return;
+        }
+
+        try {
+
+            const response =
+                await toggleMessageReaction(
+                    id,
+                    messageId,
+                    emoji
+                );
+
+            const updatedMsg =
+                response.data;
+
+            setMessages((previous) =>
+                previous.map((msg) =>
+                    String(msg.id) ===
+                    String(messageId)
+                        ? updatedMsg
+                        : msg
+                )
+            );
+
+        } catch (err) {
+
+            console.error(
+                "Failed to toggle reaction via REST:",
+                err
+            );
+
+        }
+
+    };
+
+
+    // =====================================
     // LOADING
     // =====================================
 
@@ -613,8 +738,22 @@ const Chat = () => {
                 </Link>
 
 
-                <div className="chat-user-avatar">
-                    <UserCircleIcon />
+                <div className="chat-avatar-wrapper">
+                    <div className="chat-user-avatar">
+                        <UserCircleIcon />
+                    </div>
+                    <span
+                        className={`chat-status-dot-avatar ${
+                            partnerOnline ||
+                            connectionStatus ===
+                            "connected"
+                                ? "connected"
+                                : connectionStatus ===
+                                  "connecting"
+                                ? "connecting"
+                                : "disconnected"
+                        }`}
+                    />
                 </div>
 
 
@@ -639,9 +778,20 @@ const Chat = () => {
 
 
                 <div
-                    className={`chat-connection-status ${connectionStatus}`}
+                    className={`chat-connection-status ${
+                        partnerOnline ||
+                        connectionStatus ===
+                        "connected"
+                            ? "connected"
+                            : connectionStatus ===
+                              "connecting"
+                            ? "connecting"
+                            : "disconnected"
+                    }`}
                 >
-                    {connectionStatus ===
+                    <span className="chat-status-icon-dot" />
+                    {partnerOnline ||
+                    connectionStatus ===
                     "connected"
                         ? "Online"
                         : connectionStatus ===
@@ -823,6 +973,34 @@ const Chat = () => {
                                     : "";
 
 
+                            const reactions =
+                                msg.reactions ||
+                                [];
+
+                            const groupedReactions =
+                                reactions.reduce(
+                                    (
+                                        acc,
+                                        r
+                                    ) => {
+                                        acc[
+                                            r.emoji
+                                        ] =
+                                            acc[
+                                                r.emoji
+                                            ] ||
+                                            [];
+                                        acc[
+                                            r.emoji
+                                        ].push(
+                                            r
+                                        );
+                                        return acc;
+                                    },
+                                    {}
+                                );
+
+
                             return (
 
                                 <div
@@ -838,17 +1016,170 @@ const Chat = () => {
                                     }
                                 >
 
-                                    <div className="chat-bubble">
+                                    <div className="chat-bubble-wrapper">
 
-                                        <p>
-                                            {content}
-                                        </p>
+                                        <div className="chat-bubble-row">
 
-                                        {time && (
+                                            <div className="chat-bubble">
 
-                                            <span>
-                                                {time}
-                                            </span>
+                                                <p>
+                                                    {content}
+                                                </p>
+
+                                                {time && (
+
+                                                    <span>
+                                                        {time}
+                                                    </span>
+
+                                                )}
+
+                                            </div>
+
+
+                                            <button
+                                                type="button"
+                                                className={`chat-reaction-trigger ${
+                                                    activeReactionPickerId ===
+                                                    msg.id
+                                                        ? "active"
+                                                        : ""
+                                                }`}
+                                                onClick={() =>
+                                                    setActiveReactionPickerId(
+                                                        activeReactionPickerId ===
+                                                            msg.id
+                                                            ? null
+                                                            : msg.id
+                                                    )
+                                                }
+                                                title="React to message"
+                                            >
+                                                <FaceSmileIcon />
+                                            </button>
+
+
+                                            {activeReactionPickerId ===
+                                                msg.id && (
+
+                                                <div className="chat-reaction-picker">
+
+                                                    {REACTION_EMOJIS.map(
+                                                        (
+                                                            emoji
+                                                        ) => (
+
+                                                            <button
+                                                                key={
+                                                                    emoji
+                                                                }
+                                                                type="button"
+                                                                className="chat-reaction-btn"
+                                                                onClick={() =>
+                                                                    handleToggleReaction(
+                                                                        msg.id,
+                                                                        emoji
+                                                                    )
+                                                                }
+                                                            >
+                                                                {emoji}
+                                                            </button>
+
+                                                        )
+                                                    )}
+
+                                                </div>
+
+                                            )}
+
+                                        </div>
+
+
+                                        {Object.keys(
+                                            groupedReactions
+                                        ).length >
+                                            0 && (
+
+                                            <div className="chat-reaction-pills">
+
+                                                {Object.entries(
+                                                    groupedReactions
+                                                ).map(
+                                                    ([
+                                                        emoji,
+                                                        list,
+                                                    ]) => {
+
+                                                        const hasReacted =
+                                                            list.some(
+                                                                (
+                                                                    r
+                                                                ) =>
+                                                                    (r.user_id &&
+                                                                        currentUser?.id &&
+                                                                        Number(
+                                                                            r.user_id
+                                                                        ) ===
+                                                                            Number(
+                                                                                currentUser.id
+                                                                            )) ||
+                                                                    (r.username &&
+                                                                        r.username ===
+                                                                            currentUser?.username)
+                                                            );
+
+
+                                                        return (
+
+                                                            <button
+                                                                key={
+                                                                    emoji
+                                                                }
+                                                                type="button"
+                                                                className={`chat-reaction-pill ${
+                                                                    hasReacted
+                                                                        ? "active"
+                                                                        : ""
+                                                                }`}
+                                                                onClick={() =>
+                                                                    handleToggleReaction(
+                                                                        msg.id,
+                                                                        emoji
+                                                                    )
+                                                                }
+                                                                title={list
+                                                                    .map(
+                                                                        (
+                                                                            r
+                                                                        ) =>
+                                                                            r.username
+                                                                    )
+                                                                    .filter(
+                                                                        Boolean
+                                                                    )
+                                                                    .join(
+                                                                        ", "
+                                                                    )}
+                                                            >
+
+                                                                <span>
+                                                                    {emoji}
+                                                                </span>
+
+                                                                <span className="count">
+                                                                    {
+                                                                        list.length
+                                                                    }
+                                                                </span>
+
+                                                            </button>
+
+                                                        );
+
+                                                    }
+                                                )}
+
+                                            </div>
 
                                         )}
 

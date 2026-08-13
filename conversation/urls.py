@@ -4,6 +4,7 @@ from .views import (
     ConversationListCreateView,
     ConversationDetailView,
     MessageCreateView,
+    MessageReactionToggleView,
 )
 
 
@@ -28,5 +29,11 @@ urlpatterns = [
         "<int:pk>/messages/",
         MessageCreateView.as_view(),
         name="message-create",
+    ),
+
+    path(
+        "<int:pk>/messages/<int:message_id>/react/",
+        MessageReactionToggleView.as_view(),
+        name="message-reaction-toggle",
     ),
 ]
